@@ -1,0 +1,62 @@
+# ============================================================
+# RAG-Based Adaptive Learning System — Requirements
+# ============================================================
+
+# Web Framework
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+httpx==0.27.0
+
+# Streamlit Frontend
+streamlit==1.35.0
+streamlit-chat==0.1.1
+plotly==5.22.0
+pandas==2.2.2
+
+# LangChain
+langchain==0.2.1
+langchain-community==0.2.1
+langchain-openai==0.1.8
+langchain-chroma==0.1.1
+
+# Vector Database
+chromadb==0.5.0
+
+# Embeddings
+sentence-transformers==3.0.0
+torch==2.3.0
+transformers==4.41.1
+
+# PDF Processing
+pdfplumber==0.11.0
+PyPDF2==3.0.1
+reportlab==4.2.0
+
+# LLM
+openai==1.30.1
+
+# HuggingFace (fallback LLM)
+huggingface-hub==0.23.2
+
+# Database
+aiosqlite==0.20.0
+sqlalchemy==2.0.30
+
+# Utilities
+python-dotenv==1.0.1
+pydantic==2.7.1
+pydantic-settings==2.3.0
+loguru==0.7.2
+tenacity==8.3.0
+numpy==1.26.4
+scikit-learn==1.5.0
+nltk==3.8.1
+tiktoken==0.7.0
+
+# Testing
+pytest==8.2.1
+pytest-asyncio==0.23.7
+
+# Export
+fpdf2==2.7.9

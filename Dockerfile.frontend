@@ -1,0 +1,48 @@
+# ============================================================
+# Dockerfile.frontend — Streamlit Frontend
+# ============================================================
+FROM python:3.11-slim
+
+LABEL maintainer="RAG Learning System"
+LABEL description="Streamlit frontend for RAG-Based Adaptive Learning System"
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt .
+
+# Install only frontend-relevant packages
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir \
+    streamlit==1.35.0 \
+    streamlit-chat==0.1.1 \
+    plotly==5.22.0 \
+    pandas==2.2.2 \
+    httpx==0.27.0 \
+    python-dotenv==1.0.1 \
+    pydantic==2.7.1 \
+    loguru==0.7.2 \
+    fpdf2==2.7.9 \
+    reportlab==4.2.0
+
+# Copy frontend code
+COPY frontend/ ./frontend/
+COPY utils/config.py ./utils/config.py
+COPY utils/logger.py ./utils/logger.py
+COPY utils/pdf_exporter.py ./utils/pdf_exporter.py
+COPY .env.example .env
+
+# Expose Streamlit port
+EXPOSE 8501
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+
+# Run Streamlit
+CMD ["streamlit", "run", "frontend/app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.headless=true"]
